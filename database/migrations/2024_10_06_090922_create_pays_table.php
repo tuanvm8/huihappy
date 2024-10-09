@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pays', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('festival_id'); // lấy ra thông tin hui
-            $table->unsignedBigInteger('panic_id'); // lấy ra tkỳ và thăm kêu
-            $table->date('closing_date'); //( ngày chốt )
-            $table->date('payment_date'); // Ngày trả
-            $table->timestamps();
-        });
+        // Schema::create('pays', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->unsignedBigInteger('festival_id'); // lấy ra thông tin hui
+        //     $table->unsignedBigInteger('panic_id'); // lấy ra tkỳ và thăm kêu
+        //     $table->date('closing_date'); //( ngày chốt )
+        //     $table->date('payment_date'); // Ngày trả
+        //     $table->timestamps();
+        // });
     }
 
     /**
