@@ -21,7 +21,7 @@
                 <div class="d-flex justify-content-center w-100 my-3 text-uppercase"></div>
             </div>
             <div class="border border-0 rounded-5 bg-white p-4 shadow">
-                <form action="{{ route('login') }}" method="post">
+                <form action="{{ route('admin.login.post') }}" method="post">
                     @csrf
                     <h1 class="fs-4 text-center">Đăng nhập hệ thống quản trị</h1>
                     <div class="m-3"></div>

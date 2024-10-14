@@ -4,17 +4,14 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-        Danh Sách Hụi
-    </title>
+    <title>Danh Sách Hụi</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" />
 
     <style>
-        .table-status {
-            width: 100%;
-        }
-
+        /* Your existing styles */
         .table-status thead th {
             text-align: center;
             background-color: rgba(216, 235, 242, 255);
@@ -43,205 +40,128 @@
         /* Custom styles for modal */
         .modal-lg {
             max-width: 90%;
-            /* Adjust width for large modals */
         }
 
         .select2-container {
             width: 100% !important;
-            /* Ensure select2 takes full width */
         }
     </style>
 </head>
 
 <body>
     <div class="container container-fluid mt-4">
-        <!-- Buttons Section -->
         <div class="d-flex justify-content-between align-items-center mb-3"
             style="background-color: rgba(63,107,162,255);">
             <div class="d-flex px-3">
-                <button class="btn btn-light btn-custom" style="border: 1px solid #473d3d;">Trang chủ</button>
-                <button class="btn btn-light btn-custom" style="border: 1px solid #473d3d;">Tìm kiếm</button>
+                <button class="btn btn-light btn-custom">Trang chủ</button>
+                <button class="btn btn-light btn-custom">Tìm kiếm</button>
                 <button class="btn btn-danger btn-custom" data-bs-toggle="modal"
                     data-bs-target="#exampleModalCenter">Tạo dây hụi</button>
-                <a href="{{ route('user.report') }}">
+                <a href="{{ route('admin.user.report') }}">
                     <button class="btn btn-success btn-custom">Báo cáo</button>
                 </a>
             </div>
-            <div class="flex-grow-1 px-5">
-                <h4 class="text-white">
-                    DANH SÁCH HỤI
-                </h4>
-            </div>
+            <h4 class="text-white">DANH SÁCH HỤI</h4>
         </div>
-        <div class="d-flex justify-content-center">
-            <strong class="text-danger">
-                Hiện tại có 16 dây hụi
-            </strong>
-        </div>
-        <!-- Table Section -->
-        <table class="table table-bordered table-status mt-2">
+        <strong class="text-danger" id="totalCount">Hiện tại có 0 dây hụi</strong>
+        <table class="table table-bordered table-status mt-2" id="huiTable">
             <thead>
                 <tr>
-                    <th scope="col">
-                        Mã
-                    </th>
-                    <th scope="col">
-                        Ngày mở hụi
-                    </th>
-                    <th scope="col">
-                        Dây hụi
-                    </th>
-                    <th scope="col">
-                        Khui
-                    </th>
-                    <th scope="col">
-                        Số phần
-                    </th>
-                    <th scope="col">
-                        Danh sách hụi viên
-                    </th>
-                    <th scope="col">
-                        Tình Trạng
-                    </th>
-                    <th scope="col">
-                        Ghi chú
-                    </th>
-                    <th scope="col">
-                        Chốt
-                    </th>
+                    <th scope="col">Mã</th>
+                    <th scope="col">Ngày mở hụi</th>
+                    <th scope="col">Dây hụi</th>
+                    <th scope="col">Khui</th>
+                    <th scope="col">Số phần</th>
+                    <th scope="col">Danh sách hụi viên</th>
+                    <th scope="col">Tình Trạng</th>
+                    <th scope="col">Ghi chú</th>
+                    <th scope="col">Chốt</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>16</td>
-                    <td>03/05/23</td>
-                    <td>3,000,000</td>
-                    <td>Ngày 3TR</td>
-                    <td>17</td>
-                    <td>Bông / Chính-1 / Chinh-2 / Kiều-2 / LOAN-1 / LOAN-2</td>
-                    <td><span class="status-ok px-3 py-1 rounded">13 / 17</span></td>
-                    <td></td>
-                    <td><span class="status-red px-3 py-1 rounded">OK</span></td>
-                </tr>
-            </tbody>
+            <tbody></tbody>
         </table>
     </div>
 
-    <!-- First Modal (Tạo dây hụi) -->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Tạo hụi</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <span> Ngày mở hụi: </span>
-                        </div>
-                        <div class="col-lg-8">
-                            <input type="text" class="form-control" placeholder="Ngày mở hụi" aria-label="Username"
-                                aria-describedby="basic-addon1">
-                        </div>
+                    <div class="mb-3">
+                        <label for="datePicker">Ngày mở hụi:</label>
+                        <input type="text" class="form-control" id="datePicker" placeholder="Ngày mở hụi">
                     </div>
-                    <div class="mt-3"></div>
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <span> Số tiền dây hụi: </span>
-                        </div>
-                        <div class="col-lg-8">
-                            <input type="text" class="form-control" placeholder="Số tiền" aria-label="Username"
-                                aria-describedby="basic-addon1">
-                        </div>
+                    <div class="mb-3">
+                        <label for="moneyInput">Số tiền dây hụi:</label>
+                        <input type="text" class="form-control" id="moneyInput" placeholder="Số tiền">
                     </div>
-                    <div class="mt-3"></div>
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <span> Khui: </span>
-                        </div>
-                        <div class="col-lg-8">
-                            <input type="text" class="form-control" placeholder="Khui" aria-label="Username"
-                                aria-describedby="basic-addon1">
-                        </div>
+                    <div class="mb-3">
+                        <label for="cutInput">Khui:</label>
+                        <input type="text" class="form-control" id="cutInput" placeholder="Khui">
                     </div>
-                    <div class="mt-3"></div>
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <span> Số phần: </span>
-                        </div>
-                        <div class="col-lg-8">
-                            <input type="text" class="form-control" placeholder="Số phần" aria-label="Username"
-                                aria-describedby="basic-addon1">
-                        </div>
+                    <div class="mb-3">
+                        <label for="partInput">Số phần:</label>
+                        <input type="text" class="form-control" id="partInput" placeholder="Số phần">
                     </div>
                 </div>
-                <div class="modal-footer d-flex justify-content-center">
+                <div class="modal-footer justify-content-center">
                     <button type="button" class="btn btn-success" id="createHuiBtn">Lưu Phiếu</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal mới -->
-    <div class="modal fade" id="newModal" tabindex="-1" role="dialog" aria-labelledby="newModalTitle"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">TDanh sách hội viên</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="container-fluid">
-                        <div class="row align-items-center">
-                            <div class="col-lg-5">
-                                <select class="form-select" id="mySelect" multiple style="width: 100%;">
-                                    <option value="1">Giá trị 1</option>
-                                    <option value="2">Giá trị 2</option>
-                                </select>
-                            </div>
-                            <div class="col-lg-2 flex-column align-items-center">
-                                <div class="mb-2 d-flex justify-content-center">
-                                    <button type="button" class="btn btn-secondary">=></button>
-                                </div>
-                                <div class="d-flex justify-content-center">
-                                    <button type="button" class="btn btn-secondary">
-                                        <= </button>
-                                </div>
-                            </div>
-                            <div class="col-lg-5">
-                                <select class="form-select" id="mySelect" multiple style="width: 100%;">
-                                    <option value="1">Giá trị 1</option>
-                                    <option value="2">Giá trị 2</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer d-flex justify-content-center">
-                    <button type="button" class="btn btn-success" id="createHuiBtn">Tạo dây hụi</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        document.getElementById('createHuiBtn').addEventListener('click', function() {
-            var exampleModal = bootstrap.Modal.getInstance(document.getElementById('exampleModalCenter'));
-            exampleModal.hide();
-            var newModal = new bootstrap.Modal(document.getElementById('newModal'));
-            newModal.show();
-        });
+        $(function() {
+            $('#datePicker').datepicker({
+                format: 'dd/mm/yyyy',
+                autoclose: true,
+                todayHighlight: true
+            });
 
-        $(document).ready(function() {
-            $('#mySelect').select2();
+            const loadData = () => {
+                $.ajax({
+                    url: 'http://127.0.0.1:8000/admin/festivals',
+                    method: 'GET',
+                    success: data => {
+                        const rows = data.map(item => `
+                            <tr>
+                                <td>${item.id}</td>
+                                <td>${item.start_date}</td>
+                                <td>${item.money}</td>
+                                <td>${item.cut_open}</td>
+                                <td>${item.part}</td>
+                               <td>${item.user ? item.user.name : 'Không có'}</td>
+                                <td><span class="status-ok px-3 py-1 rounded">${item.status}</span></td>
+                                <td>${item.note}</td>
+                                <td><span class="status-red px-3 py-1 rounded">${item.is_supported ? 'OK' : 'Not OK'}</span></td>
+                            </tr>
+                        `).join('');
+                        $('#huiTable tbody').html(rows);
+                        $('#totalCount').text(`Hiện tại có ${data.length} dây hụi`);
+                    },
+
+                    error: error => console.error('Error fetching data:', error)
+                });
+            }
+
+            loadData();
+
+            $('#createHuiBtn').on('click', function() {
+                $('#exampleModalCenter').modal('hide');
+                // Add code to send a POST request to create the new hui
+                // Call loadData() again to refresh the data after creation
+            });
         });
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 </body>
 
 </html>
