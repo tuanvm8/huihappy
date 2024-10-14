@@ -12,6 +12,10 @@
 
     <style>
         /* Your existing styles */
+        .table-status {
+            width: 100%;
+        }
+
         .table-status thead th {
             text-align: center;
             background-color: rgba(216, 235, 242, 255);
@@ -82,51 +86,113 @@
         </table>
     </div>
 
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" aria-labelledby="exampleModalCenterTitle"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
+    <!-- First Modal (Tạo dây hụi) -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Tạo hụi</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="datePicker">Ngày mở hụi:</label>
-                        <input type="text" class="form-control" id="datePicker" placeholder="Ngày mở hụi">
+                    <div class="row mb-3">
+                        <label class="col-lg-4">Ngày mở hụi:</label>
+                        <div class="col-lg-8">
+                            <input type="text" class="form-control" id="openDate" placeholder="Ngày mở hụi"
+                                aria-label="Ngày mở hụi" />
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="moneyInput">Số tiền dây hụi:</label>
-                        <input type="text" class="form-control" id="moneyInput" placeholder="Số tiền">
+                    <div class="row mb-3">
+                        <label class="col-lg-4">Số tiền dây hụi:</label>
+                        <div class="col-lg-8">
+                            <input type="text" class="form-control" id="huiAmount" placeholder="Số tiền"
+                                aria-label="Số tiền" />
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="cutInput">Khui:</label>
-                        <input type="text" class="form-control" id="cutInput" placeholder="Khui">
+                    <div class="row mb-3">
+                        <label class="col-lg-4">Khui:</label>
+                        <div class="col-lg-8">
+                            <input type="text" class="form-control" id="khoi" placeholder="Khui"
+                                aria-label="Khui" />
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="partInput">Số phần:</label>
-                        <input type="text" class="form-control" id="partInput" placeholder="Số phần">
+                    <div class="row mb-3">
+                        <label class="col-lg-4">Số phần:</label>
+                        <div class="col-lg-8">
+                            <input type="text" class="form-control" id="numberOfParts" placeholder="Số phần"
+                                aria-label="Số phần" />
+                        </div>
                     </div>
                 </div>
-                <div class="modal-footer justify-content-center">
+                <div class="modal-footer d-flex justify-content-center">
                     <button type="button" class="btn btn-success" id="createHuiBtn">Lưu Phiếu</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <!-- Modal mới -->
+    <div class="modal fade" id="newModal" tabindex="-1" role="dialog" aria-labelledby="newModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Danh sách hội viên</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row align-items-center">
+                            <div class="col-lg-5">
+                                <select class="form-select" id="mySelect" multiple style="width: 100%;">
+                                    <option value="1">Giá trị 1</option>
+                                    <option value="2">Giá trị 2</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-2 flex-column align-items-center">
+                                <div class="mb-2 d-flex justify-content-center">
+                                    <button type="button" class="btn btn-secondary">=></button>
+                                </div>
+                                <div class="d-flex justify-content-center">
+                                    <button type="button" class="btn btn-secondary">
+                                        <= </button>
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <select class="form-select" id="mySelect" multiple style="width: 100%;">
+                                    <option value="1">Giá trị 1</option>
+                                    <option value="2">Giá trị 2</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="button" class="btn btn-success" id="createHuiBtn">Tạo dây hụi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Đảm bảo jQuery được tải trước các script khác -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 
     <script>
-        $(function() {
-            $('#datePicker').datepicker({
+        $(document).ready(function() {
+            // Khởi tạo Date Picker
+            $('#openDate').datepicker({
                 format: 'dd/mm/yyyy',
-                autoclose: true,
-                todayHighlight: true
+                autoclose: true
             });
 
+            // Khởi tạo Select2
+            $('#mySelect').select2();
+
+            //load data
             const loadData = () => {
                 $.ajax({
                     url: 'http://127.0.0.1:8000/admin/festivals',
@@ -155,10 +221,18 @@
 
             loadData();
 
+            // Xử lý sự kiện nhấn nút "Lưu Phiếu"
             $('#createHuiBtn').on('click', function() {
+                const openDate = $('#openDate').val();
+                const huiAmount = $('#huiAmount').val();
+                const khui = $('#khoi').val();
+                const numberOfParts = $('#numberOfParts').val();
+
+                // Đóng modal sau khi lưu
                 $('#exampleModalCenter').modal('hide');
-                // Add code to send a POST request to create the new hui
-                // Call loadData() again to refresh the data after creation
+
+                // Mở modal danh sách hội viên
+                $('#newModal').modal('show');
             });
         });
     </script>
