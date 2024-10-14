@@ -11,17 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('panics', function (Blueprint $table) {
-            $table->id();
-            $table->string('period'); //( kỳ)
-            $table->unsignedBigInteger('user_id');
-            $table->string('call'); //( thăm kêu)
-            $table->string('money'); //( tiền hụi)
-            $table->string('apart_from'); //( trừ thảo)
-            $table->string('total'); //( Còn lại)
+        // Schema::create('panics', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->string('period'); //( kỳ)
+        //     $table->unsignedBigInteger('user_id');
+        //     $table->string('call'); //( thăm kêu)
+        //     $table->string('money'); //( tiền hụi)
+        //     $table->string('apart_from'); //( trừ thảo)
+        //     $table->string('total'); //( Còn lại)
               
-            $table->timestamps();
-        });
+        //     $table->timestamps();
+        // });
     }
 
     /**

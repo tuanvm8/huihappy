@@ -62,10 +62,10 @@
         <div class="container" style="background-color: rgba(88,88,88,255);">
             <div class="row justify-content-center">
                 <div class="col-sm-10 text-center button-container">
-                    <a href="{{ route('user.createCategory') }}">
+                    <a href="{{ route('admin.user.createCategory') }}">
                         <button class="btn btn-custom btn-huivien"> DANH SÁCH HỤI VIÊN </button>
                     </a>
-                    <a href="{{ route('user.bill') }}">
+                    <a href="{{ route('admin.user.bill') }}">
                         <button class="btn btn-custom btn-lamviec">BẮT ĐẦU LÀM VIỆC</button>
                     </a>
                 </div>
